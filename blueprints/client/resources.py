@@ -21,14 +21,18 @@ bp_client = Blueprint('client', __name__)
 api = Api(bp_client)
 
 class ClientResource(Resource):
-#     # Get By ID
-#     @jwt_required
-#     @internal_required
-#     def get(self, id=None):
-#         qry = Client.query.get(id)
-#         if qry:
-#             return marshal(qry, Client.client_fields), 200
-#         return {'status': 'NOT FOUND'}, 404
+    # Get By ID
+    @jwt_required
+    @internal_required
+    def get(self, id=None):
+
+        parser.add_argument('p', type=int, location='json')
+        parser.add_argument('client_key', location='json')
+
+        qry = Client.query.get(id)
+        if qry:
+            return marshal(qry, Client.client_fields), 200
+        return {'status': 'NOT FOUND'}, 404
 
 #     # Put
 #     @jwt_required
@@ -134,5 +138,5 @@ class ClientList(Resource):
 #             return marshal(client, Client.client_fields), 200, {'Content-Type':'application/json'}
 #         return {'status': 'Failed'}
 
-api.add_resource(ClientList, '', '/list')
+api.add_resource(ClientList, '')
 api.add_resource(ClientResource, '/<id>')
