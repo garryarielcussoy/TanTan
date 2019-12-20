@@ -24,7 +24,7 @@ def internal_required(fn):
     def wrapper(*args, **kwargs):
         verify_jwt_in_request()
         claims = get_jwt_claims()
-        if claims['client_key'] != 'internal':
+        if claims['username'] != 'internal':
             return {'status': 'FORBIDDEN', 'message': 'Internal Only Bro!'}, 403
         else:
             return fn(*args, **kwargs)
@@ -34,9 +34,9 @@ def internal_required(fn):
 try:
     env = os.environ.get('FLASK_ENV', 'development')
     if env == 'testing':
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@0.0.0.0:3306/testing'
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@0.0.0.0:3306/tantan_test'
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@0.0.0.0:3306/rest_training'        
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@0.0.0.0:3306/tantan_dev'        
 except Exception as e:
     raise e
 
@@ -74,11 +74,13 @@ def after_request(response):
         }))
     return response
 
-# from blueprints.client.resources import bp_client
-# app.register_blueprint(bp_client, url_prefix = '/client')
+from blueprints.client.resources import bp_client
+app.register_blueprint(bp_client, url_prefix = '/client')
+
 # from blueprints.tembak.resources import bp_tembak
 # app.register_blueprint(bp_tembak, url_prefix = '/tembak')
-# from blueprints.auth.__init__ import bp_auth
-# app.register_blueprint(bp_auth, url_prefix='/token')
+
+from blueprints.auth.__init__ import bp_auth
+app.register_blueprint(bp_auth, url_prefix='/token')
 
 db.create_all()
