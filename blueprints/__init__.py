@@ -74,17 +74,11 @@ def after_request(response):
         }))
     return response
 
-from blueprints.client.resources import bp_client
-app.register_blueprint(bp_client, url_prefix='/client')
-from blueprints.user.resources import bp_user
-app.register_blueprint(bp_user, url_prefix='/user')
-from blueprints.book.resources import bp_book
-app.register_blueprint(bp_book, url_prefix='/book')
-from blueprints.rent.resources import bp_rent
-app.register_blueprint(bp_rent, url_prefix='/rent')
-from blueprints.auth.__init__ import bp_auth
-app.register_blueprint(bp_auth, url_prefix='/token')
-from blueprints.weather.resources import bp_weather
-app.register_blueprint(bp_weather, url_prefix='/weather')
+# from blueprints.client.resources import bp_client
+# app.register_blueprint(bp_client, url_prefix = '/client')
+# from blueprints.tembak.resources import bp_tembak
+# app.register_blueprint(bp_tembak, url_prefix = '/tembak')
+# from blueprints.auth.__init__ import bp_auth
+# app.register_blueprint(bp_auth, url_prefix='/token')
 
 db.create_all()
