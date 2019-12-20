@@ -45,9 +45,14 @@ class GetMateToEat(Resource):
         nearby_friends = requests.get(self.meetup_host, params={"lat": lat, "lon": lon})
         nearby_friends = nearby_friends.json()
 
+        if len(nearby_friends) >= 3:
+            n = 3
+        else:
+            n = len(nearby_friends)
+
         return {
             "Daftar Restaurant Terdekat:" : restaurant_list,
-            "Daftar Teman yang Bisa Diajak" : nearby_friends[0:3]
+            "Daftar Teman yang Bisa Diajak" : nearby_friends[0:n]
         }, 200
 
 api.add_resource(GetMateToEat, '')
