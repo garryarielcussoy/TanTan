@@ -22,23 +22,21 @@ class CreateTokenResource(Resource):
         parser.add_argument('password', location='args', required=True)
         args = parser.parse_args()
 
-        qry = Client.query.filter_by(username = args['username']).filter_by(password = args['password'])
-
-        clientData = qry.first()
-        clientData = marshal(clientData, Client.jwt_claim_fields)
-
-        # Encript the secret
-        secret_key = hashlib.md5('tantan'.encode()).hexdigest()
-
         # Internal Client
-        if clientData['username'] == 'internal' and clientData['password'] == secret_key:
-            token = create_access_token(identity = args['username'], user_claims={'username': args['usermame']})
-        # Non-Interval Client
+        if args['username'] == 'internal' and args['password'] == 'tantan':
+            token = create_access_token(identity = args['username'], user_claims={'username': args['username']})
+            return {'token': token}, 200
+
         else:
+            password_digest = hashlib.md5(args['password'].encode()).hexdigest()
+            qry = Client.query.filter_by(username = args['username']).filter_by(password = password_digest)
+            clientData = qry.first()
+        # Non-Interval Client
             if clientData is not None:
-                token = create_access_token(identity = args['username'], user_claims={'username': args['username']})
+                clientData = marshal(clientData, Client.jwt_claim_fields)
+                token = create_access_token(identity = args['username'], user_claims=clientData)
                 return {'token': token}, 200
-            return {'status': 'UNAUTHORIZED', 'message': 'invalid username or password'}, 401
+            return {'status': 'BAD REQUEST', 'message': 'invalid username or password'}, 400
 
     # Show the payload
     @jwt_required

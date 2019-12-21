@@ -8,8 +8,8 @@ class TestAuth():
         token = create_token(False)
 
         data = {
-            "username": "CLIENT01",
-            "password": "SECRET01"
+            "username": "username1",
+            "password": "password1"
         }
 
         res = client.get('/token', query_string = data)
