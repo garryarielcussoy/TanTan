@@ -1,0 +1,16 @@
+[2019-12-20 22:56:24,878] {/home/alta8/Alterra_Academy/2019 - 12 - 16 (Minggu 5 - Senin)/Flask_Challenge_2/my_env/lib/python3.6/site-packages/flask/app.py:1891} ERROR Exception on /tembak [GET]
+Traceback (most recent call last):
+  File "/home/alta8/Alterra_Academy/2019 - 12 - 16 (Minggu 5 - Senin)/Flask_Challenge_2/my_env/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/alta8/Alterra_Academy/2019 - 12 - 16 (Minggu 5 - Senin)/Flask_Challenge_2/my_env/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/alta8/Alterra_Academy/2019 - 12 - 16 (Minggu 5 - Senin)/Flask_Challenge_2/my_env/lib/python3.6/site-packages/flask_restful/__init__.py", line 458, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/alta8/Alterra_Academy/2019 - 12 - 16 (Minggu 5 - Senin)/Flask_Challenge_2/my_env/lib/python3.6/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/alta8/Alterra_Academy/2019 - 12 - 16 (Minggu 5 - Senin)/Flask_Challenge_2/my_env/lib/python3.6/site-packages/flask_restful/__init__.py", line 573, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/alta8/Alterra_Academy/TanTan/blueprints/tembak/resources.py", line 35, in get
+    "Nama Restaurant": restaurant['name'],
+KeyError: 'name'
+[2019-12-20 22:56:24,881] {/home/alta8/Alterra_Academy/TanTan/blueprints/__init__.py:73} ERROR REQUEST_LOG	{"status_code": 500, "method": "GET", "code": "500 INTERNAL SERVER ERROR", "url": "/tembak?ip=202.52.52.23", "request": {"ip": "202.52.52.23"}, "response": {"message": "Internal Server Error"}}

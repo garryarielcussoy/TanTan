@@ -80,6 +80,10 @@ app.register_blueprint(bp_client, url_prefix = '/client')
 # from blueprints.tembak.resources import bp_tembak
 # app.register_blueprint(bp_tembak, url_prefix = '/tembak')
 
+# from blueprints.client.resources import bp_client
+# app.register_blueprint(bp_client, url_prefix = '/client')
+from blueprints.tembak.resources import bp_tembak
+app.register_blueprint(bp_tembak, url_prefix = '/tembak')
 from blueprints.auth.__init__ import bp_auth
 app.register_blueprint(bp_auth, url_prefix='/token')
 
