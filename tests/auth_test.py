@@ -8,8 +8,8 @@ class TestAuth():
         token = create_token(False)
 
         data = {
-            "client_key": "CLIENT01",
-            "client_secret": "SECRET01"
+            "username": "CLIENT01",
+            "password": "SECRET01"
         }
 
         res = client.get('/token', query_string = data)
@@ -24,4 +24,4 @@ class TestAuth():
         res = client.post('/token', headers={'Authorization': 'Bearer ' + token})
         res_json = json.loads(res.data)
         assert res.status_code == 200
-        assert res_json['client_key'] == 'internal'
+        assert res_json['username'] == 'internal'
